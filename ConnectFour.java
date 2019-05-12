@@ -46,18 +46,12 @@ public class ConnectFour {
       System.out.println("What column do you want to place at?");
       selectedCol = scanner.nextInt();
       System.out.println("you chose " + selectedCol);
-      // Here, find selectedRow. 
-      int stf;
-      stf = 0;
       selectedRow = numRows - 1;
       rowCheck = numRows * numCols - numCols + selectedCol;
-      // Between here, there is something that is always true so that it keeps the loop going when it should not be going.
-      while ((rowCheck >= 0) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
+      while ((rowCheck >= 0) && (checkIfValid.length >= rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
         rowCheck = rowCheck - numCols;
         selectedRow = selectedRow - 1;
-        stf = stf + 1;
       }
-      // Between here, there is something that is always true so that it keeps the loop going when it should not be going.
       while (selectedCol >= numCols || (0 >= rowCheck) || (selectedCol < 0) || (selectedCol > checkIfValid.length) ||  (rowCheck >= checkIfValid.length) || (checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1)) {
         System.out.println("Please choose a different number.");
         selectedCol = scanner.nextInt();
@@ -67,7 +61,6 @@ public class ConnectFour {
         while ((rowCheck >= 0) && (checkIfValid.length >= rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
           rowCheck = rowCheck - numCols;
           selectedRow = selectedRow - 1;
-          stf = stf + 1;
         }
       }
 
@@ -79,13 +72,7 @@ public class ConnectFour {
 
       selectedRow = selectedRow + 1;
 
-      // Note: Use % sign. Might be useful.
-
       slotNum = numCols * (selectedRow - 1) + selectedCol;
-      
-      /*
-      slotNum = (numCols - 1) * selectedRow + selectedCol - stf;
-      */
 
       checkIfValid[slotNum] = 1;
       if (array[slotNum] == 0) {
@@ -125,8 +112,28 @@ public class ConnectFour {
       } else {
         turn = 1;
       }
-      // Here, find out who wins. Make new variables.
+      /*
+      Different ways of winning:
 
+      Across
+      Down
+      Diagonal
+      */
+
+      /*
+
+      int checkDown, checkAcross, checkDiagonal, bottomMost;
+
+      checkDown = 0;
+      checkAcross = 0;
+      checkDiagonal = 0;
+      bottomMost = ;
+
+      while (checkDown < bottomMost) {
+
+        checkDown = checkDown + 1;
+      }
+      */
     }
     System.out.println("");
     System.out.println("Completed");
