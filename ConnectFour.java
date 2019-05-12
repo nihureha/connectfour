@@ -81,13 +81,8 @@ public class ConnectFour {
 
       // Note: Use % sign. Might be useful.
 
-      if (numRows > numCols) {
-        slotNum = (numCols - 1) * selectedRow + selectedCol;
-      } else if (numCols > numRows) {
-        slotNum = (numCols - 1) * selectedRow + selectedCol;
-      } else {
-        slotNum = numCols * (selectedRow - 1) + selectedCol;
-      }
+      slotNum = numCols * (selectedRow - 1) + selectedCol;
+      
       /*
       slotNum = (numCols - 1) * selectedRow + selectedCol - stf;
       */
