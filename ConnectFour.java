@@ -48,17 +48,21 @@ public class ConnectFour {
       System.out.println("you chose " + selectedCol);
       selectedRow = numRows - 1;
       rowCheck = numRows * numCols - numCols + selectedCol;
-      while ((rowCheck >= 0) && (checkIfValid.length >= rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
+      while ((rowCheck >= 0) && (checkIfValid.length > rowCheck) && (rowCheck - numCols >= 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
         rowCheck = rowCheck - numCols;
         selectedRow = selectedRow - 1;
       }
-      while (selectedCol >= numCols || (0 >= rowCheck) || (selectedCol < 0) || (selectedCol > checkIfValid.length) ||  (rowCheck >= checkIfValid.length) || (checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1)) {
+      System.out.println("selectedCol: " + selectedCol);
+      System.out.println("numCols: " + numCols);
+      System.out.println("rowCheck: " + rowCheck);
+      System.out.println("checkIfValid.length: " + checkIfValid.length);
+      while (selectedCol >= numCols || (0 > rowCheck) || (selectedCol < 0) || (selectedCol > checkIfValid.length) ||  (rowCheck >= checkIfValid.length) || (checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1)) {
         System.out.println("Please choose a different number.");
         selectedCol = scanner.nextInt();
         System.out.println("you chose " + selectedCol);
         selectedRow = numRows - 1;
         rowCheck = numRows * numCols - numCols + selectedCol;
-        while ((rowCheck >= 0) && (checkIfValid.length >= rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
+        while ((rowCheck >= 0) && (checkIfValid.length > rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
           rowCheck = rowCheck - numCols;
           selectedRow = selectedRow - 1;
         }
@@ -91,6 +95,21 @@ public class ConnectFour {
 
       savedNumCols = numCols;
 
+      int helpNum;
+
+      helpNum = -1;
+
+      System.out.print(" ");
+
+      while (helpNum < numCols - 1) {
+        helpNum = helpNum + 1;
+        System.out.print(helpNum + " ");
+      }
+
+      System.out.println("");
+
+      helpNum = -1;
+
       while (rowNum < numRows) {
         while (colNum < savedNumCols) {
           if (array[colNum] == 1) {
@@ -112,27 +131,55 @@ public class ConnectFour {
       } else {
         turn = 1;
       }
-      /*
-      Different ways of winning:
+      // Find a way to win, and also use using selectedCol, and selectedRow. Also, make a plylist in Spotify so that I can listen to all the album mixes.
 
-      Across
-      Down
-      Diagonal
-      */
-
-      /*
-
-      int checkDown, checkAcross, checkDiagonal, bottomMost;
-
-      checkDown = 0;
-      checkAcross = 0;
-      checkDiagonal = 0;
-      bottomMost = ;
-
-      while (checkDown < bottomMost) {
-
-        checkDown = checkDown + 1;
+      int loop, across, stopAcross, downwards, stopDownwards;
+      across = 0;
+      stopAcross = numCols - 4;
+      downwards = 0;
+      stopDownwards = numRows - 4;
+      loop= 0;
+      while (numRows > loop) {
+        while (stopAcross >= across) {
+          if ((array[across] == 1) && (array[across + 1] == 1) && (array[across + 2] == 1) && (array[across + 3] == 1)) {
+            win = 1;
+          }
+          if ((array[across] == -1) && (array[across + 1] == -1) && (array[across + 2] == -1) && (array[across + 3] == -1)) {
+            win = -1;
+          }
+          across = across + 1;
+        }
+        stopAcross = stopAcross + numCols;
+        loop = loop + 1;
       }
+      /*
+      loop = 0;
+      while (numCols > loop) {
+        while (stopDownwards >= downwards) {
+          if ((array[downwards] == 1) && (array[downwards + numCols] == 1) && (array[downwards + numCols + numCols] == 1) && (array[downwards + numCols + numCols + numCols] == 1)) {
+            win = 1;
+          }
+          if ((array[downwards] == -1) && (array[downwards + numCols] == -1) && (array[downwards + (numCols * 2)] == -1) && (array[downwards + (numCols * 3)] == -1)) {
+            win = -1;
+          }
+          downwards = downwards + 1;
+          System.out.println("stopDownwards: " + stopDownwards);
+          System.out.println("downwards: " + downwards);
+        }
+        stopDownwards = stopDownwards + numRows;
+        loop = loop + 1;
+      }
+      */
+      if (win == 1) {
+        System.out.println("X wins!");
+      }
+      if (win == -1) {
+        System.out.println("O wins!");
+      }
+      /*
+      Across: if selectedRow is the same all the time, and selectedCol is increasing and reaches 4, then a win.
+      Down: if selectedCol is the same all the time, and selectedRow is increasing and reaches 4, then a win. 
+      Diagonal: If num in (numCols - num) is increasing, then it is a win.                              
       */
     }
     System.out.println("");
