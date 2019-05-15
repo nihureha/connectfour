@@ -52,10 +52,6 @@ public class ConnectFour {
         rowCheck = rowCheck - numCols;
         selectedRow = selectedRow - 1;
       }
-      System.out.println("selectedCol: " + selectedCol);
-      System.out.println("numCols: " + numCols);
-      System.out.println("rowCheck: " + rowCheck);
-      System.out.println("checkIfValid.length: " + checkIfValid.length);
       while (selectedCol >= numCols || (0 > rowCheck) || (selectedCol < 0) || (selectedCol > checkIfValid.length) ||  (rowCheck >= checkIfValid.length) || (checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1)) {
         System.out.println("Please choose a different number.");
         selectedCol = scanner.nextInt();
@@ -133,11 +129,12 @@ public class ConnectFour {
       }
       // Find a way to win, and also use using selectedCol, and selectedRow. Also, make a plylist in Spotify so that I can listen to all the album mixes.
 
-      int loop, across, stopAcross, downwards, stopDownwards;
+      int loop, across, stopAcross, downwards, stopDownwards, numColsf;
       across = 0;
       stopAcross = numCols - 4;
       downwards = 0;
-      stopDownwards = numRows - 4;
+      numColsf = 0;
+      stopDownwards = numRows * 5;
       loop= 0;
       while (numRows > loop) {
         while (stopAcross >= across) {
@@ -152,24 +149,23 @@ public class ConnectFour {
         stopAcross = stopAcross + numCols;
         loop = loop + 1;
       }
-      /*
       loop = 0;
+
       while (numCols > loop) {
         while (stopDownwards >= downwards) {
           if ((array[downwards] == 1) && (array[downwards + numCols] == 1) && (array[downwards + numCols + numCols] == 1) && (array[downwards + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
-          if ((array[downwards] == -1) && (array[downwards + numCols] == -1) && (array[downwards + (numCols * 2)] == -1) && (array[downwards + (numCols * 3)] == -1)) {
+          if ((array[downwards] == -1) && (array[downwards + numCols] == -1) && (array[downwards + numCols + numCols] == -1) && (array[downwards + numCols + numCols + numCols] == -1)) {
             win = -1;
           }
-          downwards = downwards + 1;
-          System.out.println("stopDownwards: " + stopDownwards);
-          System.out.println("downwards: " + downwards);
+          downwards = downwards + numCols;
         }
-        stopDownwards = stopDownwards + numRows;
+        stopDownwards = stopDownwards + 1;
+        numColsf = numColsf + 1;
+        downwards = numColsf;
         loop = loop + 1;
       }
-      */
       if (win == 1) {
         System.out.println("X wins!");
       }
