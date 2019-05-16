@@ -129,12 +129,14 @@ public class ConnectFour {
       }
       // Find a way to win, and also use using selectedCol, and selectedRow. Also, make a plylist in Spotify so that I can listen to all the album mixes.
 
-      int loop, across, stopAcross, downwards, stopDownwards, numColsf;
+      int loop, across, stopAcross, downwards, stopDownwards, numColsf, diagonalRight, stopDiagonalRight;
       across = 0;
       stopAcross = numCols - 4;
       downwards = 0;
       numColsf = 0;
       stopDownwards = numRows * 5;
+      diagonalRight = 0;
+      stopDiagonalRight = numRows * 5;
       loop= 0;
       while (numRows > loop) {
         while (stopAcross >= across) {
@@ -164,6 +166,23 @@ public class ConnectFour {
         stopDownwards = stopDownwards + 1;
         numColsf = numColsf + 1;
         downwards = numColsf;
+        loop = loop + 1;
+      }
+      loop = 0;
+      numColsf = 0;
+      while (numCols - 4 > loop) {
+        while (stopDiagonalRight >= diagonalRight) {
+          if ((array[diagonalRight] == 1) && (array[diagonalRight + numCols + 1] == 1) && (array[diagonalRight + numCols + numCols + 2] == 1) && (array[diagonalRight + numCols + numCols + numCols + 3] == 1)) {
+            win = 1;
+          }
+          if ((array[diagonalRight] == -1) && (array[diagonalRight + numCols + 1] == -1) && (array[diagonalRight + numCols + numCols + 2] == -1) && (array[diagonalRight + numCols + numCols + numCols + 3] == -1)) {
+            win = -1;
+          }
+          diagonalRight = diagonalRight + numCols;
+        }
+        stopDiagonalRight = stopDiagonalRight + 1;
+        numColsf = numColsf + 1;
+        diagonalRight = numColsf;
         loop = loop + 1;
       }
       if (win == 1) {
