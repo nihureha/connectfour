@@ -129,15 +129,19 @@ public class ConnectFour {
       }
       // Find a way to win, and also use using selectedCol, and selectedRow. Also, make a plylist in Spotify so that I can listen to all the album mixes.
 
-      int loop, across, stopAcross, downwards, stopDownwards, numColsf, diagonalRight, stopDiagonalRight;
+      int loop, across, stopAcross, downwards, stopDownwards, numColsf, numRowsf, diagonalRight, stopDiagonalRight, diagonalLeft, stopDiagonalLeft;
       across = 0;
       stopAcross = numCols - 4;
       downwards = 0;
       numColsf = 0;
-      stopDownwards = numRows * 5;
+      stopDownwards = numRC - numCols - (numCols - 3);
       diagonalRight = 0;
-      stopDiagonalRight = numRows * 5;
-      loop= 0;
+      stopDiagonalRight = numCols - 4;
+      diagonalLeft = 3;
+      stopDiagonalLeft = numCols - 4;
+      loop = 0;
+      numRowsf = 0;
+      // across
       while (numRows > loop) {
         while (stopAcross >= across) {
           if ((array[across] == 1) && (array[across + 1] == 1) && (array[across + 2] == 1) && (array[across + 3] == 1)) {
@@ -149,10 +153,12 @@ public class ConnectFour {
           across = across + 1;
         }
         stopAcross = stopAcross + numCols;
+        numRowsf = numRowsf + numCols;
+        across = numRowsf;
         loop = loop + 1;
       }
+      // down
       loop = 0;
-
       while (numCols > loop) {
         while (stopDownwards >= downwards) {
           if ((array[downwards] == 1) && (array[downwards + numCols] == 1) && (array[downwards + numCols + numCols] == 1) && (array[downwards + numCols + numCols + numCols] == 1)) {
@@ -168,21 +174,60 @@ public class ConnectFour {
         downwards = numColsf;
         loop = loop + 1;
       }
+      
+      // (A && B && C && D)
+      // diagonalRight = A is inside bounds
+      // diagonalRight + numCols + 1 = B is inside bounds
+      // diagonalRight + numCols + numCols + 2 = C is out of bounds
+      // diagonalRight + numCols + numCols + numCols + 3 = D is out of bounds
       loop = 0;
       numColsf = 0;
-      while (numCols - 4 > loop) {
+
+      while (numRows - 3 > loop) {
+        System.out.println("numColsf: " + numColsf);
+        System.out.println("stopDiagonalRight: " + stopDiagonalRight);
+        System.out.println("diagonalRight: " + diagonalRight);
         while (stopDiagonalRight >= diagonalRight) {
-          if ((array[diagonalRight] == 1) && (array[diagonalRight + numCols + 1] == 1) && (array[diagonalRight + numCols + numCols + 2] == 1) && (array[diagonalRight + numCols + numCols + numCols + 3] == 1)) {
+          System.out.println("diagonalRight1: " + diagonalRight);
+          System.out.println("diagonalRight2: " + diagonalRight + 1 + numCols);
+          System.out.println("diagonalRight3: " + diagonalRight + 2 + numCols + numCols);
+          System.out.println("diagonalRight4: " + diagonalRight + 3 + numCols + numCols + numCols);
+          if ((array[diagonalRight] == 1) && (array[diagonalRight + 1 + numCols] == 1) && (array[diagonalRight + 2 + numCols + numCols] == 1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
-          if ((array[diagonalRight] == -1) && (array[diagonalRight + numCols + 1] == -1) && (array[diagonalRight + numCols + numCols + 2] == -1) && (array[diagonalRight + numCols + numCols + numCols + 3] == -1)) {
+          if ((array[diagonalRight] == -1) && (array[diagonalRight + 1  + numCols] == -1) && (array[diagonalRight + 2 + numCols + numCols] == -1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == -1)) {
             win = -1;
           }
-          diagonalRight = diagonalRight + numCols;
+          diagonalRight = diagonalRight + 1;
         }
-        stopDiagonalRight = stopDiagonalRight + 1;
-        numColsf = numColsf + 1;
+        stopDiagonalRight = stopDiagonalRight + numCols;
+        numColsf = numColsf + numCols;
         diagonalRight = numColsf;
+        loop = loop + 1;
+      }
+      // Copy and paste diagonalRight to diagonalLeft.
+      loop = 0;
+      numColsf = 0;
+      while (numCols > loop) {
+        System.out.println("numColsf: " + numColsf);
+        System.out.println("stopDiagonalLeft: " + stopDiagonalLeft);
+        System.out.println("diagonalLeft: " + diagonalLeft);
+        while (stopDiagonalLeft >= diagonalLeft) {
+          System.out.println("diagonalLeft1: " + diagonalLeft);
+          System.out.println("diagonalLeft2: " + diagonalLeft + 1 + numCols);
+          System.out.println("diagonalLeft3: " + diagonalLeft + 2 + numCols + numCols);
+          System.out.println("diagonalLeft4: " + diagonalLeft + 3 + numCols + numCols + numCols);
+          if ((array[diagonalLeft] == 1) && (array[diagonalLeft + numCols - 1] == 1) && (array[diagonalLeft + numCols + numCols - 2] == 1) && (array[diagonalLeft + numCols + numCols + numCols - 3] == 1)) {
+            win = 1;
+          }
+          if ((array[diagonalLeft] == -1) && (array[diagonalLeft + numCols - 1] == -1) && (array[diagonalLeft + numCols + numCols - 2] == -1) && (array[diagonalLeft + numCols + numCols + numCols - 3] == -1)) {
+            win = -1;
+          }
+          diagonalLeft = diagonalLeft + numCols;
+        }
+        stopDiagonalLeft = stopDiagonalLeft + 1;
+        numColsf = numColsf + 1;
+        diagonalLeft = numColsf;
         loop = loop + 1;
       }
       if (win == 1) {
