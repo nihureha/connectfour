@@ -138,7 +138,7 @@ public class ConnectFour {
       diagonalRight = 0;
       stopDiagonalRight = numCols - 4;
       diagonalLeft = 3;
-      stopDiagonalLeft = numCols - 4;
+      stopDiagonalLeft = numCols - 1;
       loop = 0;
       numRowsf = 0;
       // across
@@ -184,14 +184,7 @@ public class ConnectFour {
       numColsf = 0;
 
       while (numRows - 3 > loop) {
-        System.out.println("numColsf: " + numColsf);
-        System.out.println("stopDiagonalRight: " + stopDiagonalRight);
-        System.out.println("diagonalRight: " + diagonalRight);
         while (stopDiagonalRight >= diagonalRight) {
-          System.out.println("diagonalRight1: " + diagonalRight);
-          System.out.println("diagonalRight2: " + diagonalRight + 1 + numCols);
-          System.out.println("diagonalRight3: " + diagonalRight + 2 + numCols + numCols);
-          System.out.println("diagonalRight4: " + diagonalRight + 3 + numCols + numCols + numCols);
           if ((array[diagonalRight] == 1) && (array[diagonalRight + 1 + numCols] == 1) && (array[diagonalRight + 2 + numCols + numCols] == 1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
@@ -208,25 +201,18 @@ public class ConnectFour {
       // Copy and paste diagonalRight to diagonalLeft.
       loop = 0;
       numColsf = 0;
-      while (numCols > loop) {
-        System.out.println("numColsf: " + numColsf);
-        System.out.println("stopDiagonalLeft: " + stopDiagonalLeft);
-        System.out.println("diagonalLeft: " + diagonalLeft);
+      while (numRows - 3 > loop) {
         while (stopDiagonalLeft >= diagonalLeft) {
-          System.out.println("diagonalLeft1: " + diagonalLeft);
-          System.out.println("diagonalLeft2: " + diagonalLeft + 1 + numCols);
-          System.out.println("diagonalLeft3: " + diagonalLeft + 2 + numCols + numCols);
-          System.out.println("diagonalLeft4: " + diagonalLeft + 3 + numCols + numCols + numCols);
-          if ((array[diagonalLeft] == 1) && (array[diagonalLeft + numCols - 1] == 1) && (array[diagonalLeft + numCols + numCols - 2] == 1) && (array[diagonalLeft + numCols + numCols + numCols - 3] == 1)) {
+          if ((array[diagonalLeft] == 1) && (array[diagonalLeft - 1 + numCols] == 1) && (array[diagonalLeft - 2 + numCols + numCols] == 1) && (array[diagonalLeft - 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
-          if ((array[diagonalLeft] == -1) && (array[diagonalLeft + numCols - 1] == -1) && (array[diagonalLeft + numCols + numCols - 2] == -1) && (array[diagonalLeft + numCols + numCols + numCols - 3] == -1)) {
+          if ((array[diagonalLeft] == -1) && (array[diagonalLeft - 1  + numCols] == -1) && (array[diagonalLeft - 2 + numCols + numCols] == -1) && (array[diagonalLeft - 3 + numCols + numCols + numCols] == -1)) {
             win = -1;
           }
-          diagonalLeft = diagonalLeft + numCols;
+          diagonalLeft = diagonalLeft + 1;
         }
-        stopDiagonalLeft = stopDiagonalLeft + 1;
-        numColsf = numColsf + 1;
+        stopDiagonalLeft = stopDiagonalLeft + numCols;
+        numColsf = numColsf + numCols;
         diagonalLeft = numColsf;
         loop = loop + 1;
       }
@@ -236,6 +222,17 @@ public class ConnectFour {
       if (win == -1) {
         System.out.println("O wins!");
       }
+      int tieDecider;
+      tieDecider = 0;
+      boolean arrayCheck, arrayCheck1, passCheck;
+      arrayCheck = (array[tieDecider] == 1);
+      arrayCheck1 = (array[tieDecider] == -1);
+      passCheck = (tieDecider < array.length);
+      
+      while (passCheck && ((arrayCheck) || (arrayCheck1))) {
+        tieDecider = tieDecider = 1;
+      }
+      
       /*
       Across: if selectedRow is the same all the time, and selectedCol is increasing and reaches 4, then a win.
       Down: if selectedCol is the same all the time, and selectedRow is increasing and reaches 4, then a win. 
