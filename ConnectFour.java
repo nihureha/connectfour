@@ -134,7 +134,7 @@ public class ConnectFour {
       stopAcross = numCols - 4;
       downwards = 0;
       numColsf = 0;
-      stopDownwards = numRC - numCols - (numCols - 3);
+      stopDownwards = (numRows - 4) * numCols;
       diagonalRight = 0;
       stopDiagonalRight = numCols - 4;
       diagonalLeft = 3;
@@ -182,13 +182,12 @@ public class ConnectFour {
       // diagonalRight + numCols + numCols + numCols + 3 = D is out of bounds
       loop = 0;
       numColsf = 0;
-
       while (numRows - 3 > loop) {
         while (stopDiagonalRight >= diagonalRight) {
           if ((array[diagonalRight] == 1) && (array[diagonalRight + 1 + numCols] == 1) && (array[diagonalRight + 2 + numCols + numCols] == 1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
-          if ((array[diagonalRight] == -1) && (array[diagonalRight + 1  + numCols] == -1) && (array[diagonalRight + 2 + numCols + numCols] == -1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == -1)) {
+          if ((array[diagonalRight] == -1) && (array[diagonalRight + 1 + numCols] == -1) && (array[diagonalRight + 2 + numCols + numCols] == -1) && (array[diagonalRight + 3 + numCols + numCols + numCols] == -1)) {
             win = -1;
           }
           diagonalRight = diagonalRight + 1;
@@ -201,8 +200,19 @@ public class ConnectFour {
       // Copy and paste diagonalRight to diagonalLeft.
       loop = 0;
       numColsf = 0;
+      int diagonalLeft1, diagonalLeft2, diagonalLeft3;
+      diagonalLeft1 = 0;
+      diagonalLeft2 = 0;
+      diagonalLeft3 = 0;
       while (numRows - 3 > loop) {
         while (stopDiagonalLeft >= diagonalLeft) {
+          diagonalLeft1 = diagonalLeft + 1 + numCols;
+          diagonalLeft2 = diagonalLeft + 2 + numCols + numCols;
+          diagonalLeft3 = diagonalLeft + 3 + numCols + numCols + numCols;
+          System.out.println("diagonalLeft: " + diagonalLeft);
+          System.out.println("diagonalLeft1: " + diagonalLeft1);
+          System.out.println("diagonalLeft2: " + diagonalLeft2);
+          System.out.println("diagonalLeft3: " + diagonalLeft3);
           if ((array[diagonalLeft] == 1) && (array[diagonalLeft - 1 + numCols] == 1) && (array[diagonalLeft - 2 + numCols + numCols] == 1) && (array[diagonalLeft - 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
@@ -212,8 +222,6 @@ public class ConnectFour {
           diagonalLeft = diagonalLeft + 1;
         }
         stopDiagonalLeft = stopDiagonalLeft + numCols;
-        numColsf = numColsf + numCols;
-        diagonalLeft = numColsf;
         loop = loop + 1;
       }
       if (win == 1) {
