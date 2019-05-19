@@ -200,10 +200,6 @@ public class ConnectFour {
       // Copy and paste diagonalRight to diagonalLeft.
       loop = 0;
       numColsf = 3;
-      int diagonalLeft1, diagonalLeft2, diagonalLeft3;
-      diagonalLeft1 = 0;
-      diagonalLeft2 = 0;
-      diagonalLeft3 = 0;
       while (numRows - 3 > loop) {
         while (stopDiagonalLeft >= diagonalLeft) {
           if ((array[diagonalLeft] == 1) && (array[diagonalLeft - 1 + numCols] == 1) && (array[diagonalLeft - 2 + numCols + numCols] == 1) && (array[diagonalLeft - 3 + numCols + numCols + numCols] == 1)) {
@@ -230,12 +226,14 @@ public class ConnectFour {
       while ((tieDecider < array.length) && ((array[tieDecider] == 1) || (array[tieDecider] == -1))) {
         tieDecider = tieDecider + 1;
       }
-
+      // win = 2 means tie.
       if (array.length == tieDecider) {
         System.out.println("Tie.");
-        win = 153764984;
+        win = 2;
       }
-      
+      // win = 2 means tie.
+
+
       /*
       Across: if selectedRow is the same all the time, and selectedCol is increasing and reaches 4, then a win.
       Down: if selectedCol is the same all the time, and selectedRow is increasing and reaches 4, then a win. 
