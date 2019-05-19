@@ -199,20 +199,13 @@ public class ConnectFour {
       }
       // Copy and paste diagonalRight to diagonalLeft.
       loop = 0;
-      numColsf = 0;
+      numColsf = 3;
       int diagonalLeft1, diagonalLeft2, diagonalLeft3;
       diagonalLeft1 = 0;
       diagonalLeft2 = 0;
       diagonalLeft3 = 0;
       while (numRows - 3 > loop) {
         while (stopDiagonalLeft >= diagonalLeft) {
-          diagonalLeft1 = diagonalLeft + 1 + numCols;
-          diagonalLeft2 = diagonalLeft + 2 + numCols + numCols;
-          diagonalLeft3 = diagonalLeft + 3 + numCols + numCols + numCols;
-          System.out.println("diagonalLeft: " + diagonalLeft);
-          System.out.println("diagonalLeft1: " + diagonalLeft1);
-          System.out.println("diagonalLeft2: " + diagonalLeft2);
-          System.out.println("diagonalLeft3: " + diagonalLeft3);
           if ((array[diagonalLeft] == 1) && (array[diagonalLeft - 1 + numCols] == 1) && (array[diagonalLeft - 2 + numCols + numCols] == 1) && (array[diagonalLeft - 3 + numCols + numCols + numCols] == 1)) {
             win = 1;
           }
@@ -222,6 +215,8 @@ public class ConnectFour {
           diagonalLeft = diagonalLeft + 1;
         }
         stopDiagonalLeft = stopDiagonalLeft + numCols;
+        numColsf = numColsf + numCols;
+        diagonalLeft = numColsf;
         loop = loop + 1;
       }
       if (win == 1) {
@@ -232,13 +227,13 @@ public class ConnectFour {
       }
       int tieDecider;
       tieDecider = 0;
-      boolean arrayCheck, arrayCheck1, passCheck;
-      arrayCheck = (array[tieDecider] == 1);
-      arrayCheck1 = (array[tieDecider] == -1);
-      passCheck = (tieDecider < array.length);
-      
-      while (passCheck && ((arrayCheck) || (arrayCheck1))) {
-        tieDecider = tieDecider = 1;
+      while ((tieDecider < array.length) && ((array[tieDecider] == 1) || (array[tieDecider] == -1))) {
+        tieDecider = tieDecider + 1;
+      }
+
+      if (array.length == tieDecider) {
+        System.out.println("Tie.");
+        win = 153764984;
       }
       
       /*
