@@ -46,6 +46,7 @@ public class ConnectFour {
       System.out.println("What column do you want to place at?");
       selectedCol = scanner.nextInt();
       System.out.println("you chose " + selectedCol);
+      selectedCol = selectedCol - 1;
       selectedRow = numRows - 1;
       rowCheck = numRows * numCols - numCols + selectedCol;
       while ((rowCheck >= 0) && (checkIfValid.length > rowCheck) && (rowCheck - numCols >= 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
@@ -56,6 +57,7 @@ public class ConnectFour {
         System.out.println("Please choose a different number.");
         selectedCol = scanner.nextInt();
         System.out.println("you chose " + selectedCol);
+        selectedCol = selectedCol - 1;
         selectedRow = numRows - 1;
         rowCheck = numRows * numCols - numCols + selectedCol;
         while ((rowCheck >= 0) && (checkIfValid.length > rowCheck) && (rowCheck - numCols > 0) && ((checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1))) {
@@ -93,11 +95,11 @@ public class ConnectFour {
 
       int helpNum;
 
-      helpNum = -1;
+      helpNum = 0;
 
       System.out.print(" ");
 
-      while (helpNum < numCols - 1) {
+      while (helpNum < numCols) {
         helpNum = helpNum + 1;
         System.out.print(helpNum + " ");
       }
@@ -227,7 +229,7 @@ public class ConnectFour {
         tieDecider = tieDecider + 1;
       }
       // win = 2 means tie.
-      if (array.length == tieDecider) {
+      if ((array.length == tieDecider) && (win == 0)) {
         System.out.println("Tie.");
         win = 2;
       }
