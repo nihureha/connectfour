@@ -10,27 +10,76 @@ public class ConnectFour {
     int numRows, numCols;
     
     System.out.println("Welcome to Connect Four!");
-    System.out.println("Enter board dimensions: ");
-    System.out.print("  Number of rows: "); // NOTE: different from println
+    System.out.println("Enter board width and height: ");
+    System.out.print("  Number of rows (4 to 9): "); // NOTE: different from println
+    while(!scanner.hasNextInt()) scanner.next();
     numRows = scanner.nextInt();
-    System.out.print("  Number of columns: ");
+    System.out.print("  Number of columns (4 to 9): ");
+    while(!scanner.hasNextInt()) scanner.next();
     numCols = scanner.nextInt();
-    // minimum is 4, maximum is 4
+    System.out.println("  Requested board width and height: " + numRows + " x " + numCols);
+    System.out.println(" -------------------------------------------------------------------------- ");
+    // minimum is 4, maximum is 9
     while(numRows < 4 || numRows > 9 ||
       numCols < 4 || numCols > 9) {
-      System.out.println("Min dimension is 4 and max is 9. Invalid dimensions.");
-      System.out.println("Enter board dimensions: ");
-      System.out.print("  Number of rows: ");
+      System.out.println("Minimum number of rows/columns is 4 and max is 9.");
+      System.out.println("Enter new width and height: ");
+      System.out.print("  Number of rows (4 to 9): ");
+      while(!scanner.hasNextInt()) scanner.next();
       numRows = scanner.nextInt();
-      System.out.print("  Number of columns: ");
+      System.out.print("  Number of columns (4 to 9): ");
+      while(!scanner.hasNextInt()) scanner.next();
       numCols = scanner.nextInt();
+      System.out.println("  Requested board width and height: " + numRows + " x " + numCols);
+      System.out.println(" -------------------------------------------------------------------------- ");
     }
 
     /* ------ DO NOT CHANGE END ------ */
 
+    int rowNum, colNum, savedNumCols, array[], numRC;
+
+    numRC = numCols * numRows;
+
+    rowNum = 0;
+
+    colNum = 0;
+
+    savedNumCols = numCols;
+
+    int helpNum;
+
+    helpNum = 0;
+
+    System.out.print(" ");
+
+    while (helpNum < numCols) {
+      helpNum = helpNum + 1;
+      System.out.print(helpNum + " ");
+    }
+
+    System.out.println("");
+
+    array = new int[numRC];
+
+    while (rowNum < numRows) {
+      while (colNum < savedNumCols) {
+        if (array[colNum] == 1) {
+          System.out.print("|X");
+        } else if (array[colNum] == -1) {
+          System.out.print("|O");
+        } else {
+          System.out.print("| ");
+        }
+        colNum = colNum + 1;
+      }
+      savedNumCols = savedNumCols + numCols;
+      System.out.print("|");
+      System.out.println();
+      rowNum = rowNum + 1;
+    }
+
     int slotNum, selectedRow, selectedCol, findRow;
-    int array[];
-    int turn, win, numRC;
+    int turn, win;
     turn = 1;
     win = 0;
     numRC = numCols * numRows;
@@ -44,6 +93,7 @@ public class ConnectFour {
       int rowCheck;
 
       System.out.println("What column do you want to place at?");
+      while(!scanner.hasNextInt()) scanner.next();
       selectedCol = scanner.nextInt();
       System.out.println("you chose " + selectedCol);
       selectedCol = selectedCol - 1;
@@ -55,6 +105,7 @@ public class ConnectFour {
       }
       while (selectedCol >= numCols || (0 > rowCheck) || (selectedCol < 0) || (selectedCol > checkIfValid.length) ||  (rowCheck >= checkIfValid.length) || (checkIfValid[rowCheck] == 1) || (checkIfValid[rowCheck] == -1)) {
         System.out.println("Please choose a different number.");
+        while(!scanner.hasNextInt()) scanner.next();
         selectedCol = scanner.nextInt();
         System.out.println("you chose " + selectedCol);
         selectedCol = selectedCol - 1;
@@ -85,15 +136,11 @@ public class ConnectFour {
         }
       }
 
-      int rowNum, colNum, savedNumCols;
-
       rowNum = 0;
 
       colNum = 0;
 
       savedNumCols = numCols;
-
-      int helpNum;
 
       helpNum = 0;
 
